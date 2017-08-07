@@ -45,7 +45,7 @@ function execute(bundle) {
 }
 
 describe('rollup-plugin-three-example', () => {
-  it('imports .glsl, .frag and .vert files as strings', () => {
+  it('imports three’s examples', () => {
     return rollup.rollup({
       entry: 'sample/index.js',
       plugins: [
