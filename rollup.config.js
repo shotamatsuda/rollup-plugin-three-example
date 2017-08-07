@@ -30,8 +30,6 @@ export default {
     buble(),
   ],
   external: [
-    'glslify',
-    'path',
     'rollup-pluginutils',
   ],
   targets: [
