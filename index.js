@@ -41,7 +41,7 @@ function match(code) {
   const result = [];
   let match;
   while (match = pattern1.exec(code)) {
-    match.source = match[1].replace(replacer1, '');
+    match.source = match[1].replace(replacer1, '$2');
     result.push(match);
   }
   while (match = pattern2.exec(code)) {
@@ -87,6 +87,10 @@ function threeExample(options = {}) {
           const start = match.index;
           const end = match.index + match[0].length;
           const minified = await minify(match.source);
+          if (!minified) {
+            console.warn('Failed to minify shader:', id);
+            continue;
+          }
           transformedCode = replace(code, start, end, `Shader: \`${minified}\``);
         }
       }
