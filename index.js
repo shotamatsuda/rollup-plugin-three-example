@@ -1,6 +1,12 @@
 'use strict';
 
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
 var rollupPluginutils = require('rollup-pluginutils');
+var stream = require('stream');
+var deparser = _interopDefault(require('glsl-deparser'));
+var parser = _interopDefault(require('glsl-parser'));
+var tokenizer = _interopDefault(require('glsl-tokenizer/stream'));
 
 //
 //  The MIT License
@@ -26,29 +32,71 @@ var rollupPluginutils = require('rollup-pluginutils');
 //  DEALINGS IN THE SOFTWARE.
 //
 
-function threeExample(options) {
-  if ( options === void 0 ) options = {};
+const pattern1 = /Shader:\s*\[([\s\S]*?)\]\.join\(\s*(["'])\\n\2\s*\)/g;
+const replacer1 = /(["'])(.*?)\1,?/g;
+const pattern2 = /Shader:\s*(["'])([\s\S]*?)\1/g;
+const replacer2 = /(\\$|\\n)/gm;
 
-  var filter = rollupPluginutils.createFilter(options.include || options.exclude);
+function match(code) {
+  const result = [];
+  let match;
+  while (match = pattern1.exec(code)) {
+    match.source = match[1].replace(replacer1, '');
+    result.push(match);
+  }
+  while (match = pattern2.exec(code)) {
+    match.source = match[2].replace(replacer2, '');
+    result.push(match);
+  }
+  result.sort((a, b) => b.index - a.index);
+  return result;
+}
+
+function minify(glsl) {
+  return new Promise((resolve, reject) => {
+    let result = '';
+    const stream$$1 = new stream.Readable();
+    stream$$1.pipe(tokenizer()).pipe(parser()).pipe(deparser(false)).on('data', buffer => result += buffer.toString()).on('end', () => resolve(result));
+    stream$$1.push(glsl);
+    stream$$1.push(null);
+  });
+}
+
+function replace(source, start, end, replacement) {
+  return source.substring(0, start) + replacement + source.substring(end);
+}
+
+function threeExample(options = {}) {
+  const filter = rollupPluginutils.createFilter(options.include || options.exclude);
 
   return {
     name: 'three-example',
 
-    transform: function transform(code, id) {
+    async transform(code, id) {
       if (!filter(id)) {
-        return null
+        return null;
       }
       if (!/node_modules\/three\/examples\/js/.test(id)) {
-        return null
+        return null;
       }
-      var intro = "import * as THREE from 'three';";
-      var transformedCode = intro + "(function (THREE) { " + code + " })(THREE);";
+      let transformedCode = code;
+      if (options.minifyShaders) {
+        const matches = match(code);
+        for (let i = 0; i < matches.length; ++i) {
+          const match = matches[i];
+          const start = match.index;
+          const end = match.index + match[0].length;
+          const minified = await minify(match.source);
+          transformedCode = replace(code, start, end, `Shader: \`${minified}\``);
+        }
+      }
+      const intro = `import * as THREE from 'three';`;
       return {
-        code: transformedCode,
-        map: { mappings: '' },
-      }
-    },
-  }
+        code: `${intro}(function (THREE) { ${transformedCode} })(THREE);`,
+        map: { mappings: '' }
+      };
+    }
+  };
 }
 
 module.exports = threeExample;
