@@ -91,7 +91,7 @@ function threeExample(options = {}) {
             console.warn('Failed to minify shader:', id);
             continue;
           }
-          transformedCode = replace(code, start, end, `Shader: \`${minified}\``);
+          transformedCode = replace(transformedCode, start, end, `Shader: \`${minified}\``);
         }
       }
       const intro = `import * as THREE from 'three';`;
