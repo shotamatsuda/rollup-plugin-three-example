@@ -47,9 +47,9 @@ function execute(bundle) {
 describe('rollup-plugin-three-example', () => {
   it('imports three’s examples', () => {
     return rollup.rollup({
-      entry: 'sample/index.js',
+      input: 'sample/index.js',
       plugins: [
-        threeExample(),
+        threeExample({ minifyShaders: true }),
         nodeResolve(),
         buble(),
       ],
@@ -58,6 +58,8 @@ describe('rollup-plugin-three-example', () => {
       ],
     }).then(execute).then(module => {
       expect(module.exports.EffectComposer).not.undefined
+      expect(module.exports.LuminosityHighPassShader).not.undefined
+      expect(module.exports.OutlinePass).not.undefined
     })
   })
 })
