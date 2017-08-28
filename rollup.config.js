@@ -22,20 +22,31 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import buble from 'rollup-plugin-buble'
+import babel from 'rollup-plugin-babel'
 
 export default {
-  entry: 'index.module.js',
+  input: 'index.module.js',
   plugins: [
-    buble(),
+    babel({
+      presets: [
+        ['env', {
+          targets: { node: 'current' },
+          modules: false,
+        }],
+      ],
+    }),
   ],
   external: [
+    'glsl-deparser',
+    'glsl-parser',
+    'glsl-tokenizer/stream',
     'rollup-pluginutils',
+    'stream',
   ],
-  targets: [
+  output: [
     {
       format: 'cjs',
-      dest: 'index.js',
+      file: 'index.js',
     },
   ],
 }
