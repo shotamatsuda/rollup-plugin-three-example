@@ -16,8 +16,8 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "lint": "standard -v src/**/*.js test/test.js rollup.config.js",
-    "lint-fix": "standard -v --fix src/**/*.js test/test.js rollup.config.js",
+    "lint": "standard -v index.module.js test/test.js rollup.config.js",
+    "lint-fix": "standard -v --fix index.module.js test/test.js rollup.config.js",
     "pretest": "npm run build",
     "test": "mocha"
   },
