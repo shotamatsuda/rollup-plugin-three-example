@@ -1,28 +1,10 @@
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
-const buble = require('rollup-plugin-buble')
+/* eslint-env mocha */
+/* eslint-disable no-unused-expressions */
+
+const babel = require('rollup-plugin-babel')
 const chai = require('chai')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const rollup = require('rollup')
@@ -32,9 +14,9 @@ const expect = chai.expect
 
 process.chdir(__dirname)
 
-function execute(bundle) {
+function execute (bundle) {
   return bundle.generate({
-    format: 'cjs',
+    format: 'cjs'
   }).then(generated => {
     // eslint-disable-next-line no-new-func
     const fn = new Function('module', 'exports', 'require', generated.code)
@@ -49,17 +31,24 @@ describe('rollup-plugin-three-example', () => {
     return rollup.rollup({
       input: 'sample/index.js',
       plugins: [
-        threeExample({ minifyShaders: true }),
+        threeExample(),
         nodeResolve(),
-        buble(),
+        babel({
+          presets: [
+            ['env', {
+              targets: { browser: 'current' },
+              modules: false
+            }]
+          ]
+        })
       ],
       external: [
-        'three',
-      ],
+        'three'
+      ]
     }).then(execute).then(module => {
-      expect(module.exports.EffectComposer).not.undefined
-      expect(module.exports.LuminosityHighPassShader).not.undefined
-      expect(module.exports.OutlinePass).not.undefined
+      Object.keys(module.exports).forEach(key => {
+        expect(module.exports[key]).not.undefined
+      })
     })
   })
 })
