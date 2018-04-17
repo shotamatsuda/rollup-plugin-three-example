@@ -1,10 +1,135 @@
 import * as THREE from 'three'
-import 'three/examples/js/postprocessing/EffectComposer'
-import 'three/examples/js/shaders/LuminosityHighPassShader'
-import 'three/examples/js/postprocessing/OutlinePass'
+
+import 'three/examples/js/postprocessing/EffectComposer.js'
+
+import 'three/examples/js/postprocessing/AdaptiveToneMappingPass.js'
+import 'three/examples/js/postprocessing/BloomPass.js'
+import 'three/examples/js/postprocessing/BokehPass.js'
+import 'three/examples/js/postprocessing/ClearPass.js'
+import 'three/examples/js/postprocessing/CubeTexturePass.js'
+import 'three/examples/js/postprocessing/DotScreenPass.js'
+import 'three/examples/js/postprocessing/FilmPass.js'
+import 'three/examples/js/postprocessing/GlitchPass.js'
+import 'three/examples/js/postprocessing/MaskPass.js'
+import 'three/examples/js/postprocessing/OutlinePass.js'
+import 'three/examples/js/postprocessing/RenderPass.js'
+import 'three/examples/js/postprocessing/SAOPass.js'
+import 'three/examples/js/postprocessing/SavePass.js'
+import 'three/examples/js/postprocessing/ShaderPass.js'
+import 'three/examples/js/postprocessing/SMAAPass.js'
+import 'three/examples/js/postprocessing/SSAARenderPass.js'
+import 'three/examples/js/postprocessing/SSAOPass.js'
+import 'three/examples/js/postprocessing/TAARenderPass.js'
+import 'three/examples/js/postprocessing/TexturePass.js'
+import 'three/examples/js/postprocessing/UnrealBloomPass.js'
+
+import 'three/examples/js/shaders/BasicShader.js'
+import 'three/examples/js/shaders/BleachBypassShader.js'
+import 'three/examples/js/shaders/BlendShader.js'
+import 'three/examples/js/shaders/BokehShader.js'
+import 'three/examples/js/shaders/BrightnessContrastShader.js'
+import 'three/examples/js/shaders/ColorCorrectionShader.js'
+import 'three/examples/js/shaders/ColorifyShader.js'
+import 'three/examples/js/shaders/ConvolutionShader.js'
+import 'three/examples/js/shaders/CopyShader.js'
+import 'three/examples/js/shaders/DepthLimitedBlurShader.js'
+import 'three/examples/js/shaders/DigitalGlitch.js'
+import 'three/examples/js/shaders/DOFMipMapShader.js'
+import 'three/examples/js/shaders/DotScreenShader.js'
+import 'three/examples/js/shaders/FilmShader.js'
+import 'three/examples/js/shaders/FocusShader.js'
+import 'three/examples/js/shaders/FreiChenShader.js'
+import 'three/examples/js/shaders/FresnelShader.js'
+import 'three/examples/js/shaders/FXAAShader.js'
+import 'three/examples/js/shaders/GammaCorrectionShader.js'
+import 'three/examples/js/shaders/HorizontalBlurShader.js'
+import 'three/examples/js/shaders/HorizontalTiltShiftShader.js'
+import 'three/examples/js/shaders/HueSaturationShader.js'
+import 'three/examples/js/shaders/KaleidoShader.js'
+import 'three/examples/js/shaders/LuminosityHighPassShader.js'
+import 'three/examples/js/shaders/LuminosityShader.js'
+import 'three/examples/js/shaders/MirrorShader.js'
+import 'three/examples/js/shaders/NormalMapShader.js'
+import 'three/examples/js/shaders/ParallaxShader.js'
+import 'three/examples/js/shaders/PixelShader.js'
+import 'three/examples/js/shaders/RGBShiftShader.js'
+import 'three/examples/js/shaders/SAOShader.js'
+import 'three/examples/js/shaders/SepiaShader.js'
+import 'three/examples/js/shaders/SMAAShader.js'
+import 'three/examples/js/shaders/SobelOperatorShader.js'
+import 'three/examples/js/shaders/SSAOShader.js'
+import 'three/examples/js/shaders/TechnicolorShader.js'
+import 'three/examples/js/shaders/ToneMapShader.js'
+import 'three/examples/js/shaders/TriangleBlurShader.js'
+import 'three/examples/js/shaders/UnpackDepthRGBAShader.js'
+import 'three/examples/js/shaders/VerticalBlurShader.js'
+import 'three/examples/js/shaders/VerticalTiltShiftShader.js'
+import 'three/examples/js/shaders/VignetteShader.js'
+import 'three/examples/js/shaders/WaterRefractionShader.js'
 
 export default {
   EffectComposer: THREE.EffectComposer,
-  LuminosityHighPassShader: THREE.LuminosityHighPassShader,
+  AdaptiveToneMappingPass: THREE.AdaptiveToneMappingPass,
+  BloomPass: THREE.BloomPass,
+  BokehPass: THREE.BokehPass,
+  ClearPass: THREE.ClearPass,
+  CubeTexturePass: THREE.CubeTexturePass,
+  DotScreenPass: THREE.DotScreenPass,
+  FilmPass: THREE.FilmPass,
+  GlitchPass: THREE.GlitchPass,
+  MaskPass: THREE.MaskPass,
   OutlinePass: THREE.OutlinePass,
+  RenderPass: THREE.RenderPass,
+  SAOPass: THREE.SAOPass,
+  SavePass: THREE.SavePass,
+  ShaderPass: THREE.ShaderPass,
+  SMAAPass: THREE.SMAAPass,
+  SSAARenderPass: THREE.SSAARenderPass,
+  SSAOPass: THREE.SSAOPass,
+  TAARenderPass: THREE.TAARenderPass,
+  TexturePass: THREE.TexturePass,
+  UnrealBloomPass: THREE.UnrealBloomPass,
+  BasicShader: THREE.BasicShader,
+  BleachBypassShader: THREE.BleachBypassShader,
+  BlendShader: THREE.BlendShader,
+  BokehShader: THREE.BokehShader,
+  BrightnessContrastShader: THREE.BrightnessContrastShader,
+  ColorCorrectionShader: THREE.ColorCorrectionShader,
+  ColorifyShader: THREE.ColorifyShader,
+  ConvolutionShader: THREE.ConvolutionShader,
+  CopyShader: THREE.CopyShader,
+  DepthLimitedBlurShader: THREE.DepthLimitedBlurShader,
+  DigitalGlitch: THREE.DigitalGlitch,
+  DOFMipMapShader: THREE.DOFMipMapShader,
+  DotScreenShader: THREE.DotScreenShader,
+  FilmShader: THREE.FilmShader,
+  FocusShader: THREE.FocusShader,
+  FreiChenShader: THREE.FreiChenShader,
+  FresnelShader: THREE.FresnelShader,
+  FXAAShader: THREE.FXAAShader,
+  GammaCorrectionShader: THREE.GammaCorrectionShader,
+  HorizontalBlurShader: THREE.HorizontalBlurShader,
+  HorizontalTiltShiftShader: THREE.HorizontalTiltShiftShader,
+  HueSaturationShader: THREE.HueSaturationShader,
+  KaleidoShader: THREE.KaleidoShader,
+  LuminosityHighPassShader: THREE.LuminosityHighPassShader,
+  LuminosityShader: THREE.LuminosityShader,
+  MirrorShader: THREE.MirrorShader,
+  NormalMapShader: THREE.NormalMapShader,
+  ParallaxShader: THREE.ParallaxShader,
+  PixelShader: THREE.PixelShader,
+  RGBShiftShader: THREE.RGBShiftShader,
+  SAOShader: THREE.SAOShader,
+  SepiaShader: THREE.SepiaShader,
+  SMAAShader: THREE.SMAAShader,
+  SobelOperatorShader: THREE.SobelOperatorShader,
+  SSAOShader: THREE.SSAOShader,
+  TechnicolorShader: THREE.TechnicolorShader,
+  ToneMapShader: THREE.ToneMapShader,
+  TriangleBlurShader: THREE.TriangleBlurShader,
+  UnpackDepthRGBAShader: THREE.UnpackDepthRGBAShader,
+  VerticalBlurShader: THREE.VerticalBlurShader,
+  VerticalTiltShiftShader: THREE.VerticalTiltShiftShader,
+  VignetteShader: THREE.VignetteShader,
+  WaterRefractionShader: THREE.WaterRefractionShader
 }
